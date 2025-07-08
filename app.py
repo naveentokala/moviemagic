@@ -175,7 +175,7 @@ def payment():
 
         mock_bookings.append(booking_info)
         session['last_booking'] = booking_info
-        send_mock_email(session['user'], booking_info)
+        send_real_email(session['user'], booking_info)
         session.pop('pending_booking', None)
         flash("Payment successful. Ticket booked!")
 
