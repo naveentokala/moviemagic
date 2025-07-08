@@ -19,7 +19,7 @@ sns_topic_arn = 'arn:aws:sns:us-east-1:545009839820:movie:bf584b33-1369-43c0-88e
 app = Flask(__name__)
 app.secret_key = 'super-secret-key'
 app.config['MAIL_SERVER'] = os.getenv('smtp.gmaill.com')
-app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT'))
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))  # 587 is default
 app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS') == 'True'
 app.config['MAIL_USERNAME'] = os.getenv('nallabothulavijaykarthik2004@gmai.com')
 app.config['MAIL_PASSWORD'] = os.getenv('Chappanui4q')
