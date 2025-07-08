@@ -7,8 +7,8 @@ from flask_mail import Mail, Message
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'         # Or another provider like Outlook
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'your_email@gmail.com'  # Your actual email
-app.config['MAIL_PASSWORD'] = 'your_app_password'     # App password or real one for testing
+app.config['MAIL_USERNAME'] = 'nallabothulavijay2004@gmail.com'  # Your actual email
+app.config['MAIL_PASSWORD'] = 'Chappanu@i4q'     # App password or real one for testing
 
 mail = Mail(app)
 
