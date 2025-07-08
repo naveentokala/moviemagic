@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Tickets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='seatSelection.js') }}" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+    <a href="{{ url_for('home') }}" class="logo">
+        <img src="{{ url_for('static', filename='posters/mm.jpg') }}" alt="MovieMagic Logo">
+        <span>MovieMagic</span>
+    </a>
+</nav>
+
+    <div class="booking-container">
+        <div class="poster-preview">
+            <img src="{{ url_for('static', filename=movie_info.poster) }}" alt="{{ movie }}">
+        </div>
+
+        <div class="form-area">
+            <h2>Book for {{ movie }}</h2>
+            <form method="POST">
+                <label>Date</label>
+                <!-- Custom Scrollable Date Selector -->
+                <div class="date-strip" id="date-strip"></div>
+                  <input type="hidden" name="date" id="selected-date" required>
+
+                <label>Show Timing</label>
+<div class="showtime-options">
+    <button type="button" class="showtime-btn" data-time="5:00 AM">5:00 AM</button>
+    <button type="button" class="showtime-btn" data-time="8:30 AM">8:30 AM</button>
+    <button type="button" class="showtime-btn" data-time="11:45 PM">11:45 PM</button>
+    <button type="button" class="showtime-btn" data-time="3:00 PM">3:00 PM</button>
+    <button type="button" class="showtime-btn" data-time="6:15 PM">6:15 PM</button>
+    <button type="button" class="showtime-btn" data-time="9:30 PM">9:30 PM</button>
+</div>
+<input type="hidden" name="time" id="selected-showtime" required>
+
+
+                <label>Seat</label>
+                <input type="text" id="selected-seats" placeholder="Selected Seats" required readonly>
+
+                <!-- Live Seat Count & Price Summary -->
+                <div id="booking-summary">
+                    <p><strong>Seats Selected:</strong> <span id="seat-count">0</span></p>
+                    <p><strong>Total Price:</strong> ₹<span id="total-price">0</span></p>
+                </div>
+
+                <!-- Define row prices -->
+                {% set row_prices = {
+                    'A': 300,
+                    'B': 200,
+                    'I': 100
+                } %}
+
+                <!-- Seat Grid with price labels only on specific rows -->
+                <!-- Full-width Seat Grid -->
+<!-- Full-width Seat Grid -->
+<div class="full-width-seat-container">
+    <div class="seat-grid">
+    {% for row in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'] %}
+        <div class="seat-row-container">
+            {% if row in row_prices %}
+                <div class="row-price">Rs. {{ row_prices[row] }} {{ row_prices[row] == 350 and "PLATINUM" or "GOLD" }}</div>
+            {% endif %}
+            <div class="seat-row">
+                <div class="seat-label">{{ row }}</div> <!-- ⭐ Add this -->
+                {% for num in range(1, 21) %}
+                    {% if num == 12 %}
+                        <div class="seat-gap"></div>
+                    {% endif %}
+                    <div class="seat" data-seat="{{ row }}{{ num }}">{{ num }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+
+
+                <button type="submit">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const dateStrip = document.getElementById("date-strip");
+    const selectedDateInput = document.getElementById("selected-date");
+
+    const daysToShow = 7;
+    const today = new Date();
+
+    for (let i = 0; i < daysToShow; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+        const dayNum = date.getDate();
+        const month = date.toLocaleDateString('en-US', { month: 'short' });
+        const formatted = `${dayName}, ${dayNum} ${month}`;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "date-btn";
+        btn.textContent = formatted;
+        btn.dataset.date = date.toISOString().split("T")[0]; // yyyy-mm-dd
+
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".date-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            selectedDateInput.value = btn.dataset.date;
+        });
+
+        dateStrip.appendChild(btn);
+    }
+});
+</script>

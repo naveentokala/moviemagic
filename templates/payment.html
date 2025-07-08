@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>💳 Payment Details</h2>
+        <form method="POST">
+            <label>Cardholder Name</label>
+            <input type="text" name="cardholder" placeholder="e.g. John Doe" required>
+
+            <label>Card Number</label>
+            <input type="text" name="cardnumber" id="cardnumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+
+            <label>Expiry (MM/YY)</label>
+            <input type="text" name="expiry" id="expiry" placeholder="MM/YY" maxlength="5" required>
+
+            <label>CVV</label>
+            <input type="text" name="cvv" placeholder="123" maxlength="3" required>
+
+            <button type="submit">Pay & Confirm</button>
+        </form>
+    </div>
+
+    <script>
+        // Auto-format card number (1234 5678 9012 3456)
+        document.getElementById('cardnumber').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || '';
+            e.target.value = formatted;
+        });
+
+        // Auto-format expiry to MM/YY
+        document.getElementById('expiry').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+
+            e.target.value = value.substring(0, 5); // Limit to 5 characters
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MovieMagic | Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+   <nav class="navbar">
+    <a href="{{ url_for('home') }}" class="logo">
+        <img src="{{ url_for('static', filename='posters/mm.jpg') }}" alt="MovieMagic Logo">
+        <span>MovieMagic</span>
+    </a>
+    {% if session.get('user') %}
+    <div class="nav-links">
+        <span style="margin-right: 15px;">👤 {{ session['user'] }}</span>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    {% endif %}
+</nav>
+
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-text">
+            <h1>Welcome to MovieMagic</h1>
+            <p>Discover, book, and feel the magic of movie</p>
+
+        </div>
+    </section>
+
+    <!-- Genre Filter Bar -->
+    <div class="genre-filters">
+        <span class="genre-chip">All</span>
+        <span class="genre-chip">Action</span>
+        <span class="genre-chip">Comedy</span>
+        <span class="genre-chip">Drama</span>
+        <span class="genre-chip">Horror</span>
+        <span class="genre-chip">Romance</span>
+    </div>
+
+   <!-- Now Showing -->
+<section class="movie-section" id="now-showing">
+    <h2>Now Showing</h2>
+    <div class="movie-grid">
+        {% for movie in movies %}
+        <div class="movie-card">
+            <a href="{{ url_for('booking') }}?movie={{ movie.title | urlencode }}">
+                <img src="{{ url_for('static', filename=movie.poster) }}" alt="{{ movie.title }}">
+            </a>
+            <div class="movie-info">
+                <h3>{{ movie.title }}</h3>
+                <span class="genre-badge">{{ movie.genre }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+    <!-- Coming Soon -->
+    <section class="movie-section">
+    <h2>Coming Soon</h2>
+    <div class="movie-grid">
+
+        <div class="movie-card">
+            <img src="{{ url_for('static', filename='posters/in.jpg') }}" alt="Interstellar">
+            <div class="movie-info">
+                <h3>Interstellar</h3>
+                <span class="genre-badge">Sci-Fi</span>
+                <button class="btn-secondary" disabled>Coming Soon</button>
+            </div>
+        </div>
+
+         <div class="movie-card">
+            <img src="{{ url_for('static', filename='posters/f1.jpg') }}" alt="F1">
+            <div class="movie-info">
+                <h3>F1</h3>
+                <span class="genre-badge">Action</span>
+                <button class="btn-secondary" disabled>Coming Soon</button>
+            </div>
+        </div>
+
+        
+         <div class="movie-card">
+            <img src="{{ url_for('static', filename='posters/sa.jpg') }}" alt="Saalar">
+            <div class="movie-info">
+                <h3>Saalar</h3>
+                <span class="genre-badge">Action</span>
+                <button class="btn-secondary" disabled>Coming Soon</button>
+            </div>
+        </div>
+
+        
+         <div class="movie-card">
+            <img src="{{ url_for('static', filename='posters/peddi.jpg') }}" alt="Peddi">
+            <div class="movie-info">
+                <h3>Peddi</h3>
+                <span class="genre-badge">Action</span>
+                <button class="btn-secondary" disabled>Coming Soon</button>
+            </div>
+        </div>
+            <!-- Add more upcoming cards as needed -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 MovieMagic. All rights reserved.</p>
+    </footer>
+</body>
+</html>

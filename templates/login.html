@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | MovieMagic</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            input {
+                font-size: 1em;
+                width: 100%;
+            }
+        }
+
+        .toggle-pw,
+        .forgot-link {
+            display: block;
+            margin-top: 10px;
+            color: #F9C80E;
+            font-size: 0.9em;
+            text-align: left;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .form-container .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .google-btn {
+            background: white;
+            color: #121212;
+            border: none;
+            font-weight: bold;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .google-btn img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo Navbar -->
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="MovieMagic Logo" style="height: 40px;">
+        </a>
+    </div>
+
+    <div class="form-container">
+        <h2>Welcome Back 🎟</h2>
+
+        <form method="POST">
+            <input type="email" name="email" placeholder="Email" required><br>
+            <input type="password" name="password" id="password" placeholder="Password" required><br>
+
+            <div class="remember-forgot">
+                <label>
+                    <input type="checkbox" name="remember"> Remember Me
+                </label>
+                <a href="{{ url_for('forgot_password') }}" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <label class="toggle-pw">
+                <input type="checkbox" onclick="togglePassword()"> Show Password
+            </label>
+
+            <button type="submit">Login</button>
+
+            <button class="google-btn" type="button">
+                <img src="{{ url_for('static', filename='posters/goo.jpg') }}" alt="Google icon">
+                Login with Google
+            </button>
+        </form>
+
+        <p>Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const pw = document.getElementById("password");
+            pw.type = pw.type === "password" ? "text" : "password";
+        }
+    </script>
+
+</body>
+</html>

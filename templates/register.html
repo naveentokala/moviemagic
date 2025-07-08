@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | MovieMagic</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            input {
+                font-size: 1em;
+                width: 100%;
+            }
+        }
+        .toggle-pw {
+            margin-top: 10px;
+            color: #F9C80E;
+            cursor: pointer;
+            font-size: 0.9em;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar / Logo -->
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="MovieMagic Logo" style="height: 40px;">
+        </a>
+    </div>
+
+    <div class="form-container">
+        <h2>Create an Account 🍿</h2>
+
+        <form method="POST" onsubmit="return validatePasswordMatch()">
+            <input type="email" name="email" placeholder="Email" required
+                   pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email"><br>
+
+            <input type="password" name="password" id="password" placeholder="Password" required
+                   pattern=".{6,}" title="Password must be at least 6 characters"><br>
+
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required><br>
+
+            <label class="toggle-pw">
+                <input type="checkbox" onclick="togglePassword()"> Show Password
+            </label>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already a member? <a href="{{ url_for('login') }}">Login</a></p>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const pw = document.getElementById("password");
+            const cpw = document.getElementById("confirm_password");
+            pw.type = pw.type === "password" ? "text" : "password";
+            cpw.type = cpw.type === "password" ? "text" : "password";
+        }
+
+        function validatePasswordMatch() {
+            const pw = document.getElementById("password").value;
+            const cpw = document.getElementById("confirm_password").value;
+
+            if (pw !== cpw) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+</html>

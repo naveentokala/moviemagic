@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="confirmation-container">
+        <h2>🎉 Your ticket is booked!</h2>
+        <!-- Movie Poster -->
+<div class="poster-with-details">
+    <img src="{{ url_for('static', filename=booking.poster) }}" alt="Movie Poster" class="movie-poster">
+
+    <div class="booking-summary">
+        <p><strong>Movie:</strong> {{ booking.movie | e }}</p>
+        <p><strong>Date:</strong> {{ booking.date | e }}</p>
+        <p><strong>Time:</strong> {{ booking.time | e }}</p>
+        <p><strong>Seats:</strong> {{ booking.seats | join(', ') | e }}</p>
+        <p><strong>Booking ID:</strong> {{ booking.id | e }}</p>
+    </div>
+</div>
+
+
+        <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
+    </div>
+
+    <script>
+        // Fancy animated confetti loop
+        const duration = 2 * 1000;
+        const end = Date.now() + duration;
+
+        (function frame() {
+            confetti({
+                particleCount: 4,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 }
+            });
+            confetti({
+                particleCount: 4,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 }
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        })();
+    </script>
+</body>
+</html>
