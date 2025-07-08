@@ -18,12 +18,13 @@ sns = boto3.client('sns', region_name="us-east-1")
 sns_topic_arn = 'arn:aws:sns:us-east-1:545009839820:movie:bf584b33-1369-43c0-88e8-85a6b2e77af8'
 app = Flask(__name__)
 app.secret_key = 'super-secret-key'
-app.config['MAIL_SERVER'] = os.getenv('smtp.gmaill.com')
-app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))  # 587 is default
-app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS') == 'True'
-app.config['MAIL_USERNAME'] = os.getenv('nallabothulavijaykarthik2004@gmai.com')
-app.config['MAIL_PASSWORD'] = os.getenv('Chappanui4q')
-app.config['MAIL_DEFAULT_SENDER'] = os.getenv('nallabothulavijaykarthik2004@gmai.com')
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', 'True') == 'True'
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
+
 
 mail = Mail(app)
 
